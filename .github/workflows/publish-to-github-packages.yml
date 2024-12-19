@@ -24,13 +24,16 @@ jobs:
         with:
           java-version: '17'
           distribution: 'temurin'
+          server-id: github
+          server-username: GITHUB_ACTOR
+          server-password: GITHUB_TOKEN 
 
       - name: Build, Generate SBOM, and Deploy
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           mvn -B clean package cyclonedx:makeAggregateBom
-          mvn -B -e deploy -DskipTests -DaltDeploymentRepository=github::https://maven.pkg.github.com/diggsweden/eudiw-wallet-metadata-lib-poc
+          mvn -B -e deploy
 
       - name: Upload SBOM
         uses: actions/upload-artifact@v4
