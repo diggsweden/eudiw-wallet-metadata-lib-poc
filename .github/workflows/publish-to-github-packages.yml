@@ -6,6 +6,10 @@ name: Publish artifact to github packages
 
 on: [workflow_call]
 
+permissions:
+  contents: read
+  packages: write
+
 jobs:
   publish:
     name: Build and Publish
